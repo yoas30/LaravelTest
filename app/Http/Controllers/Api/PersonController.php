@@ -60,7 +60,7 @@ class PersonController extends Controller
     //GET
     public function show(string $id)
     {
-         //Mengeluarkan Data by id
+         //Mengeluarkan Data by {id}
          $person = Person::findOrFail($id);
          return response()->json([
              'status' => true,
@@ -72,9 +72,29 @@ class PersonController extends Controller
     /**
      * Update the specified resource in storage.
      */
+    //PUT
     public function update(Request $request, string $id)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        if ($validator->fails()){
+            return response()->json([
+                'status' => false,
+                'message' => 'validasi error',
+                'errors' => $validator->errors()
+            ],422);
+        }
+
+        $person = Person::findOrFail($id);
+        $person->update($request->all());
+        return response()->json([
+            'status' => 'true',
+            'message' => 'Data berhasil diperbaiki',
+            'data' => $person
+        ],200);
     }
 
     /**
@@ -82,6 +102,10 @@ class PersonController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $person = Person::findOrFail($id)->delete();
+        return response()->json([
+            'status' => 'true',
+            'message' => 'Data berhasil dihapus'
+        ],200);
     }
 }
