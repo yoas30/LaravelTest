@@ -6,6 +6,19 @@
     <title>Data API</title>
 </head>
 <body>
+    <h1>Daftar Produk</h1>
+
+    {{-- List Title dari API --}}
+    <ul id="productList">
+        @if(isset($data['carts']))
+            @foreach ($data['carts'] as $cart)
+                @foreach ($cart['products'] as $product)
+                    <li>{{ $product['title'] }}</li>
+                @endforeach
+            @endforeach
+        @endif
+    </ul>
+    <br>
     <h1>Data Title</h1>
 
     {{-- Menampilkan title pertama di H1 --}}
