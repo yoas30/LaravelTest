@@ -3,6 +3,11 @@
 use App\Http\Controllers\HalamanController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Http;
+
+
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,3 +33,4 @@ Route::get('/siswa/{id}',[SiswaController::class, 'detail'])
 Route::get('/', [HalamanController::class,'index']);
 Route::get('/tentang', [HalamanController::class,'tentang']);
 Route::get('/kontak', [HalamanController::class,'kontak']);
+
