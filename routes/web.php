@@ -34,3 +34,18 @@ Route::get('/', [HalamanController::class,'index']);
 Route::get('/tentang', [HalamanController::class,'tentang']);
 Route::get('/kontak', [HalamanController::class,'kontak']);
 
+
+
+Route::get('/api', function () { 
+    $response = Http::get('https://dummyjson.com/carts');
+    
+    if ($response->failed()) {
+        abort(500, 'Gagal mengambil data dari API');
+    }
+
+    $data = $response->json(); // Ambil data JSON
+// dd($data);
+    return view('apidata', ["data" => $data]);
+
+  //  return view('apidata', ["data" => $response->json()]);
+});
